@@ -22,8 +22,8 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMixin {
-
+class _MyHomePageState extends State<MyHomePage>
+    with SingleTickerProviderStateMixin {
   TabController _tabController;
 
   final List<Tab> myTabs = <Tab>[
@@ -40,15 +40,17 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
+      appBar: AppBar(
         title: Text('Sample app'),
-    ),
-    body: new TabBarView(
+      ),
+      body: new TabBarView(
         controller: _tabController,
         children: [
           new ListView.builder(itemBuilder: ListData().build),
           new ListView.builder(itemBuilder: ListData().build),
-        ],),
+         // _buildList(),  
+        ],
+      ),
       bottomNavigationBar: new TabBar(
         controller: _tabController,
         tabs: myTabs,
@@ -57,6 +59,11 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
     );
   }
 }
+
+// Widget _buildList({String key, String string}) {
+//   return new ListView.builder(
+//       key: PageStorageKey(key), itemBuilder: ListData().build);
+// }
 
 class ListData {
   static ListData _instance = ListData._internal();
@@ -70,11 +77,13 @@ class ListData {
   Random _rand = Random();
   Map<int, int> _values = new Map();
 
-  Widget build (BuildContext context, int index) {
+  Widget build(BuildContext context, int index) {
     if (!_values.containsKey(index)) {
       _values[index] = _rand.nextInt(20);
     }
 
-    return Text('Random number ${_values[index]}',);
+    return Text(
+      'Random number ${_values[index]}',
+    );
   }
 }
